@@ -33,8 +33,9 @@ export default function Random() {
             const books = data.docs.map((book, index) => ({
                 title: book.title,
                 author: book.author_name?.[0] || 'Unknown Author',
-                coverUrl: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg` : null,
-                rating: (Math.random() * 2 + 3).toFixed(1)
+                coverUrl: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : null,
+                rating: (Math.random() * 2 + 3).toFixed(1),
+                bookKey: book.key
             }));
 
             setRandomBooks(books);
@@ -110,6 +111,7 @@ export default function Random() {
                                     author={book.author}
                                     coverUrl={book.coverUrl}
                                     rating={book.rating}
+                                    bookKey={book.bookKey}
                                 />
                             ))
                         )}

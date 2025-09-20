@@ -30,8 +30,9 @@ export default function Browse() {
                 const formattedBooks = data.docs.map(book => ({
                     title: book.title,
                     author: book.author_name?.[0] || 'Unknown Author',
-                    coverUrl: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg` : "https://placehold.co/230x300?text=No+Cover",
-                    rating: (Math.random() * 2 + 3).toFixed(1)
+                    coverUrl: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : "https://placehold.co/230x300?text=No+Cover",
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    bookKey: book.key
                 }));
                 setBooks(formattedBooks);
             }
@@ -157,6 +158,7 @@ export default function Browse() {
                                         author={book.author}
                                         coverUrl={book.coverUrl}
                                         rating={book.rating}
+                                        bookKey={book.bookKey}
                                     />
                                 ))
                             )}
