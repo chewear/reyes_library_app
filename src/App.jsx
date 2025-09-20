@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Header from "./components/Header";
+import { Container, Box } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { lightTheme, darkTheme } from "./styles/theme";
+import { Routes, Route } from "react-router-dom";
+import Trending from "./pages/Trending";
+import Browse from "./pages/Browse";
+import Random from "./pages/Random";
+import About from "./pages/About";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+    const [isDarkMode, setIsDarkMode] = useState(true);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const toggleTheme = () => {
+        setIsDarkMode(!isDarkMode);
+    };
+
+    return (
+        <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+            <CssBaseline />
+            <Box sx={{ minHeight: '100vh'}}>
+                <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+                <Box maxWidth="xl" sx={{ display: "flex", flexDirection: "column", alignItems: "center", minHeight: "100vh", paddingY: 16, margin: "0 auto" }}>
+                    <Routes>
+                        <Route path="/" element={<Trending />} />
+                        <Route path="/browse" element={<Browse />} />
+                        <Route path="/random" element={<Random />} />
+                        <Route path="/about" element={<About />} />
+                    </Routes>
+                </Box>
+            </Box>
+        </ThemeProvider>
+    );
 }
-
-export default App
